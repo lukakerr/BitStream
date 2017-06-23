@@ -7,9 +7,11 @@ Currently only `.mp4` files are supported as I haven't had a chance to integrate
 ### To Run The App
 
 `git clone https://github.com/LukaKerr/bitstream.git`
+
 `cd bitstream && npm install`
+
 `electron .`
 
 ### Screenshot
 
-<img src="http://i.imgur.com/P74Ajlt.png" alt="bitstream" width="300">
+<img src="http://i.imgur.com/P74Ajlt.png" alt="bitstream" width="500">
