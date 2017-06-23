@@ -1,0 +1,74 @@
+body, html {
+	background: #202020;
+	color: #AAA;
+	font-family: Helvetica Neue;
+	font-weight: 200;
+	user-select: none;
+}
+
+h1 {
+	font-weight: 100;
+	text-align: center;
+	cursor: default;
+}
+
+img {
+	width: 30px;
+	margin-bottom: -33px;
+	margin-left: 20px;
+	display: none;
+}
+
+form {
+	text-align: center;
+}
+
+input {
+	background: #303030;
+	border: none;
+	border-radius: 4px;
+	font-size: 12px;
+	height: 30px;
+	padding-left: 5px;
+	vertical-align: middle;
+	width: 250px;
+	color: #AAA;
+}
+
+input:focus {
+	border: none;
+	box-shadow: 0 0 4px rgba(81, 203, 238, 1);
+	outline: none;
+	transition: 0.3s;
+}
+
+button {
+	background: #303030;
+	border: none;
+	color: #AAA;
+	border-radius: 4px;
+	height: 32px;
+	width: 150px;
+	outline: none;
+	transition: all 0.3s
+}
+
+button:hover {
+	cursor: pointer;
+	box-shadow: 0 0 4px rgba(81, 203, 238, 1);
+	transition: all 0.3s
+}
+
+video {
+	margin-top: 20px;
+	width: 100%;
+}
+
+.titlebar {
+	margin: -10px -10px 0 -12px;
+	height: 20px;
+	background: transparent;
+	width: calc(100% + 20px);
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
+}
