@@ -6,6 +6,15 @@ body, html {
 	user-select: none;
 }
 
+.titlebar {
+	margin: -10px -10px 0 -12px;
+	height: 20px;
+	background: transparent;
+	width: calc(100% + 20px);
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
+}
+
 h1 {
 	font-weight: 100;
 	text-align: center;
@@ -14,13 +23,15 @@ h1 {
 
 img {
 	width: 30px;
-	margin-bottom: -33px;
+	top: 47px;
+	position: absolute;
 	margin-left: 20px;
 	display: none;
 }
 
 form {
 	text-align: center;
+	margin-bottom: 70px;
 }
 
 input {
@@ -59,16 +70,42 @@ button:hover {
 	transition: all 0.3s
 }
 
-video {
+#title {
+	text-align: center;
+	font-size: 16px;
+}
+
+video, audio {
 	margin-top: 20px;
 	width: 100%;
 }
 
-.titlebar {
-	margin: -10px -10px 0 -12px;
-	height: 20px;
-	background: transparent;
-	width: calc(100% + 20px);
-	-webkit-user-select: none;
-	-webkit-app-region: drag;
+audio {
+	width: 60%;
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+video::-webkit-media-controls-panel, audio::-webkit-media-controls-panel {
+    background-color: #232323;
+}
+
+video::-webkit-media-controls-volume-slider-container, audio::-webkit-media-controls-volume-slider-container {
+    background-color: #303030;
+}
+
+video::-webkit-media-controls-volume-slider, audio::-webkit-media-controls-volume-slider {
+    background-color: #303030;
+}
+
+video::-webkit-media-controls-timeline, audio::-webkit-media-controls-timeline {
+    background-color: #202020;
+}
+
+video::-webkit-media-controls, audio::-webkit-media-controls {
+	filter: grayscale(100%);
+}
+
+#percentage {
+	margin: 50px 0 20px 0;
 }
