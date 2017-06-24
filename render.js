@@ -4,7 +4,7 @@ trayDownImg = document.createElement("img")
 trayButton.addEventListener('click', function (event) {
 	if (trayOn) {
 		trayButton.removeChild(document.getElementsByTagName('img')[0])
-		trayDownImg.src = "assets/img/tray.png"
+		trayDownImg.src = "assets/img/tray-up.png"
 		trayDownImg.title = "Add Menubar Icon To Show Download Percentage"
 		trayButton.appendChild(trayDownImg)
 		trayOn = false
