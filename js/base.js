@@ -7,12 +7,12 @@ client.on('error', function (err) {
 })
 
 document.querySelector('form').addEventListener('submit', function (e) {
-    e.preventDefault()
+	e.preventDefault()
 
-    var torrentId = document.querySelector('form input[name=magnet]').value
-    loading.style.display = 'block';
-    document.getElementById('status').innerHTML = 'Adding file...';
-    client.add(torrentId, { path: __dirname + '/Downloads' }, onTorrent)
+	var torrentId = document.querySelector('form input[name=magnet]').value
+	loading.style.display = 'block';
+	document.getElementById('status').innerHTML = 'Adding file...';
+	client.add(torrentId, { path: __dirname + '/Downloads' }, onTorrent)
 })
 
 function onTorrent(torrent) {
@@ -20,23 +20,23 @@ function onTorrent(torrent) {
 	loading.style.display = 'none';
 
 	setTimeout(function () {
-        document.getElementById('status').style.display = "none";
-    }, 5000);
+		document.getElementById('status').style.display = "none";
+	}, 5000);
 
-    var file = torrent.files.find(function (file) {
-      return file.name.endsWith('.mp4')
-    })
+	var file = torrent.files.find(function (file) {
+		return file.name.endsWith('.mp4')
+	})
 
-    file.appendTo('.output')
+	file.appendTo('.output')
 
-    var interval = setInterval(function () {
-    	document.getElementById('percentage').innerHTML = 'Progress: ' + (torrent.progress * 100).toFixed(1) + '%'
-    }, 5000)
+	var interval = setInterval(function () {
+		document.getElementById('percentage').innerHTML = 'Progress: ' + (torrent.progress * 100).toFixed(1) + '%'
+	}, 5000)
 
-    torrent.on('done', function () {
-    	ldocument.getElementById('percentage').innerHTML = 'Progress: 100%'
-    	clearInterval(interval)
-    })
+	torrent.on('done', function () {
+		ldocument.getElementById('percentage').innerHTML = 'Progress: 100%'
+		clearInterval(interval)
+	})
 }
 
 function log (str) {

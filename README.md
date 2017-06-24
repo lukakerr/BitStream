@@ -4,7 +4,7 @@ A rudimentary Electron application that utilises [WebTorrent](https://github.com
 
 Currently only `.mp4` files are supported as I haven't had a chance to integrate other formats yet. If you are testing this app, make sure to use a magnet that is an `.mp4` file otherwise nothing will happen. An example magnet is `magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4`.
 
-To get magnets from a torrent website such as [ThePirateBay](https://thepiratebay.org), simply search for a torrent, right click on "GET THIS TORRENT" and hit copy link.
+To get magnets from a torrent website such as [ThePirateBay](https://thepiratebay.org), simply search for a torrent, right click on "GET THIS TORRENT" and hit "copy link".
 
 ### To Run The App
 
