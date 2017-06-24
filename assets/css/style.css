@@ -21,12 +21,29 @@ h1 {
 	cursor: default;
 }
 
-img {
+#loading {
 	width: 30px;
 	top: 47px;
 	position: absolute;
 	margin-left: 20px;
 	display: none;
+}
+
+#put-in-tray {
+	right: 10px;
+	top: 20px;
+	width: 25px;
+	height: 20px;
+	position: absolute;
+}
+
+#put-in-tray:hover {
+	box-shadow: none;
+}
+
+#put-in-tray img {
+	width: 10px;
+	margin: 0 0 -1px -1px;
 }
 
 form {

@@ -1,6 +1,9 @@
 var WebTorrent = require('webtorrent')
 var client = new WebTorrent()
-var loading = document.getElementById('loading');
+const ipc = require('electron').ipcRenderer
+var loading = document.getElementById('loading')
+const trayButton = document.getElementById('put-in-tray')
+let trayOn = false
 
 client.on('error', function (err) {
 	console.error('Error: ' + err.message)
@@ -47,13 +50,21 @@ function onTorrent(torrent) {
 
 	// Every 5 seconds get download percentage
 	var interval = setInterval(function () {
+		if (trayOn) {
+			ipc.send('put-in-tray', 'Downloading... ' + (torrent.progress * 100).toFixed(1) + '%', false)
+		}
 		document.getElementById('percentage').innerHTML = 'Downloading... ' + (torrent.progress * 100).toFixed(1) + '%'
 	}, 5000)
 
 	// When torrent is done, clear the interval
 	torrent.on('done', function () {
+		if (trayOn) {
+			ipc.send('put-in-tray', 'Download Complete', false)
+		}
 		document.getElementById('percentage').innerHTML = 'Progress: 100%'
 		clearInterval(interval)
+		// Show item in downloads folder
+		require('electron').shell.showItemInFolder(__dirname + '/Downloads/' + torrent.name)
 	})
 }
 

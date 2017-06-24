@@ -1,12 +1,15 @@
 <!doctype html>
 <html>
 <head>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 	<div class="titlebar"></div>
 	<h1>Stream Torrent Files</h1>
-	<img id="loading" src="loading.gif">
+	<button id="put-in-tray">
+		<img src="assets/img/tray.png" title="Add Menubar Icon To Show Download Percentage">
+	</button>
+	<img id="loading" src="assets/img/loading.gif">
 
 	<form>
 		<label for="magnet">Enter a magnet link: </label>
@@ -20,6 +23,7 @@
 
 	<p id="percentage"></p>
 
-	<script src="js/base.js"></script>
+	<script src="assets/js/base.js"></script>
+	<script type="text/javascript">require('./render')</script>
 </body>
 </html>
