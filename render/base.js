@@ -76,6 +76,7 @@ function onTorrent(torrent) {
 		document.getElementById('percentage').innerHTML = 'Progress: 100%'
 		clearInterval(interval)
 		ipc.send('download-finished', torrent.name)
+		new Notification('Download Complete', { body: torrent.name + ' has finished downloading.' })
 	})
 }
 

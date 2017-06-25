@@ -1,18 +1,19 @@
 {
-  "name": "BitStream",
-  "description": "An application that utilises WebTorrent to stream and download a torrent simultaneously.",
-  "version": "0.1.0",
-  "main": "main/main.js",
-  "license": "MIT",
-  "author": "Luka Kerr",
-  "scripts": {
-    "start": "electron .",
-    "build": "electron-packager ./ BitStream --platform=darwin --arch=x64 --version=1.4.3 --icon=./icon.icns"
-  },
-  "devDependencies": {
-    "electron-packager": "^8.1.0"
-  },
-  "dependencies": {
-    "webtorrent": "^0.98.18"
-  }
+	"name": "BitStream",
+	"description": "Stream and download a torrent easily with BitStream powered by WebTorrent",
+	"version": "0.1.0",
+	"main": "main/main.js",
+	"license": "MIT",
+	"author": "Luka Kerr",
+	"scripts": {
+		"start": "electron .",
+		"build": "electron-packager ./ BitStream --platform=darwin --arch=x64 --version=1.0.1 --icon=./icon.icns"
+	},
+	"devDependencies": {
+		"electron-packager": "^8.1.0"
+	},
+	"dependencies": {
+		"webtorrent": "^0.98.18",
+		"electron": "^1.6.2"
+	}
 }
