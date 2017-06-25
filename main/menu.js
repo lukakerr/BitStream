@@ -1,11 +1,30 @@
 const electron = require('electron')
 const app = electron.app;
 const dialog = electron.dialog;
+const path = require('path')
 const Menu = electron.Menu
+const BrowserWindow = electron.BrowserWindow;
 
 function init() {
 	menu = Menu.buildFromTemplate(getMenuTemplate());
 	Menu.setApplicationMenu(menu);
+}
+
+function openAboutWindow() {
+	const modalPath = path.join('file://', __dirname, '../assets/html/about.html')
+	let win = new BrowserWindow({
+		minWidth: 300,
+		minHeight: 150,
+		maxWidth: 300,
+		maxHeight: 150,
+		width: 300, 
+		height: 150,
+		center: true,
+		titleBarStyle: 'hidden' 
+	})
+	win.on('close', function () { win = null })
+	win.loadURL(modalPath)
+	win.show()
 }
 
 function getMenuTemplate() {
@@ -14,7 +33,7 @@ function getMenuTemplate() {
 		submenu: [{
 			label: 'Open',
 			accelerator: 'CmdOrCtrl+O',
-			click: () => {
+			click: function() {
 				dialog.showOpenDialog({properties: [ 'openFile']}, function(filename) { 
 					if (filename) {
 						console.log(filename.toString())
@@ -82,7 +101,9 @@ function getMenuTemplate() {
 			submenu: [
 			{
 				label: 'About ' + name,
-				role: 'about'
+				click: function() {
+					openAboutWindow()
+				}
 			}, {
 				type: 'separator'
 			}, {
@@ -107,7 +128,9 @@ function getMenuTemplate() {
 			}, {
 				label: 'Quit',
 				accelerator: 'Command+Q',
-				click: () => { app.quit(); }
+				click: function() {
+					app.quit()
+				}
 			}]
 		});
 	}

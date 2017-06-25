@@ -133,3 +133,22 @@ video::-webkit-media-controls, audio::-webkit-media-controls {
 #percentage {
 	margin: 50px 0 20px 0;
 }
+
+/* About Window */
+
+.about-window {
+	position: absolute;
+	text-align: center;
+	font-size: 13px;
+	margin: -40px 20px 0 20px;
+}
+
+.about-window a {
+	text-decoration: none;
+	color: orange;
+}
+
+.about-window span {
+	display: block;
+	margin: 10px 0;
+}

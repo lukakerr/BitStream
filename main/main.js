@@ -14,12 +14,11 @@ app.on('ready', function() {
 		minHeight: 200,
 		width: 600,
 		center: true,
-		titleBarStyle: 'hidden',
-		frame: false
+		titleBarStyle: 'hidden'
 	});
 	mainWindow.loadURL('file://' + __dirname + '/../index.html')
 
-	// menu.init()
+	menu.init()
 	dock.init()
 });
 
