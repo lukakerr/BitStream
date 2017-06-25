@@ -1,12 +1,16 @@
-var WebTorrent = require('webtorrent')
-var client = new WebTorrent()
+const WebTorrent = require('webtorrent')
+const client = new WebTorrent()
 const ipc = require('electron').ipcRenderer
-var loading = document.getElementById('loading')
-const trayButton = document.getElementById('put-in-tray')
+
+let loading = document.getElementById('loading')
+let trayButton = document.getElementById('put-in-tray')
 let trayOn = false
 
 client.on('error', function (err) {
 	console.error('Error: ' + err.message)
+	loading.style.display = 'none';
+	alert('An error occured. Please try again.')
+	location.reload()
 })
 
 // Listen for for input
@@ -22,8 +26,14 @@ document.querySelector('form').addEventListener('submit', function (e) {
 	var torrentId = document.querySelector('form input[name=magnet]').value
 	// Show loading spinner
 	loading.style.display = 'block';
-	// Start downloading torrent, callback to onTorrent
-	client.add(torrentId, { path: __dirname + '/Downloads' }, onTorrent)
+	
+	ipc.send('downloads-path')
+
+	ipc.on('downloads-path-reply', function (event, path) {
+  		const downloadsPath = path
+  		// Start downloading torrent, callback to onTorrent
+		client.add(torrentId, { path: downloadsPath }, onTorrent)
+	})
 })
 
 function onTorrent(torrent) {
@@ -53,6 +63,7 @@ function onTorrent(torrent) {
 		if (trayOn) {
 			ipc.send('put-in-tray', 'Downloading... ' + (torrent.progress * 100).toFixed(1) + '%', false)
 		}
+		ipc.send('set-badge', (torrent.progress * 100).toFixed(1) + '%')
 		document.getElementById('percentage').innerHTML = 'Downloading... ' + (torrent.progress * 100).toFixed(1) + '%'
 	}, 5000)
 
@@ -61,10 +72,10 @@ function onTorrent(torrent) {
 		if (trayOn) {
 			ipc.send('put-in-tray', 'Download Complete', false)
 		}
+		ipc.send('set-badge', '100%')
 		document.getElementById('percentage').innerHTML = 'Progress: 100%'
 		clearInterval(interval)
-		// Show item in downloads folder
-		require('electron').shell.showItemInFolder(__dirname + '/Downloads/' + torrent.name)
+		ipc.send('download-finished', torrent.name)
 	})
 }
 

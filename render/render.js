@@ -15,7 +15,7 @@ trayButton.addEventListener('click', function (event) {
 		trayDownImg.title = "Remove Menubar Icon"
 		trayButton.appendChild(trayDownImg)
 		trayOn = true
-		ipc.send('put-in-tray', 'Progress Shown During Download', true)
+		ipc.send('put-in-tray', 'Progress Shown When Downloading', true)
 	}
 })
 

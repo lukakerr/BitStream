@@ -2,7 +2,7 @@
   "name": "BitStream",
   "description": "An application that utilises WebTorrent to stream and download a torrent simultaneously.",
   "version": "0.1.0",
-  "main": "main.js",
+  "main": "main/main.js",
   "license": "MIT",
   "author": "Luka Kerr",
   "scripts": {

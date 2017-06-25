@@ -7,7 +7,7 @@ body, html {
 }
 
 .titlebar {
-	margin: -10px -10px 0 -12px;
+	margin: -10px -10px 50px -12px;
 	height: 20px;
 	background: transparent;
 	width: calc(100% + 20px);
@@ -76,7 +76,7 @@ button {
 	color: #AAA;
 	border-radius: 4px;
 	height: 32px;
-	width: 150px;
+	width: 40px;
 	outline: none;
 	transition: all 0.3s
 }
@@ -87,13 +87,20 @@ button:hover {
 	transition: all 0.3s
 }
 
+#download-btn img {
+	width: 22px;
+	position: relative;
+	margin-bottom: -9.8px;
+	bottom: 3px;
+}
+
 #title {
 	text-align: center;
 	font-size: 16px;
 }
 
 video, audio {
-	margin-top: 20px;
+	margin-top: 0px;
 	width: 100%;
 }
 

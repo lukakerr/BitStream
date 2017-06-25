@@ -1,23 +1,15 @@
-const path = require('path')
 const electron = require('electron')
 const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
-const Menu = electron.Menu
 const dialog = electron.dialog;
-const ipc = electron.ipcMain
-const Tray = electron.Tray
+const Menu = electron.Menu
 
-app.on('ready', function() {
-	mainWindow = new BrowserWindow({
-		minWidth: 600,
-		minHeight: 200,
-		width: 600,
-		center: true,
-		titleBarStyle: 'hidden'
-	});
-	mainWindow.loadURL('file://' + __dirname + '/index.html');
+function init() {
+	menu = Menu.buildFromTemplate(getMenuTemplate());
+	Menu.setApplicationMenu(menu);
+}
 
-	var application_menu = [{
+function getMenuTemplate() {
+	const menuTemplate = [{
 		label: 'File',
 		submenu: [{
 			label: 'Open',
@@ -85,7 +77,7 @@ app.on('ready', function() {
 
 	if (process.platform == 'darwin') {
 		const name = app.getName();
-		application_menu.unshift({
+		menuTemplate.unshift({
 			label: name,
 			submenu: [
 			{
@@ -119,34 +111,9 @@ app.on('ready', function() {
 			}]
 		});
 	}
+	return menuTemplate
+}
 
-	menu = Menu.buildFromTemplate(application_menu);
-	Menu.setApplicationMenu(menu);
-
-});
-
-let appIcon = null
-
-// Put progress in tray
-ipc.on('put-in-tray', function (event, progress, newTray) {
-	const iconName = 'assets/img/tray.png'
-	const iconPath = path.join(__dirname, iconName)
-	// If tray already exists, newTray = false
-	if (newTray) {
-		appIcon = new Tray(iconPath)
-	}
-	// Create menu item with progress percentage
-	const contextMenu = Menu.buildFromTemplate([{
-		label: progress,
-		enabled: false
-	}])
-	appIcon.setContextMenu(contextMenu)
-})
-
-ipc.on('remove-tray', function () {
-	appIcon.destroy()
-})
-
-app.on('window-all-closed', function () {
-	if (appIcon) appIcon.destroy()
-})
+module.exports = {
+	init
+}

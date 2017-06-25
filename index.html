@@ -14,7 +14,9 @@
 	<form>
 		<label for="magnet">Enter a magnet link: </label>
 		<input name="magnet">
-		<button type="submit">Download &amp; Stream</button>
+		<button type="submit" id="download-btn">
+			<img src="assets/img/dl.png" title="Download And Stream">
+		</button>
 	</form>
 
 	<div class="output">
@@ -23,7 +25,7 @@
 
 	<p id="percentage"></p>
 
-	<script src="assets/js/base.js"></script>
-	<script type="text/javascript">require('./render')</script>
+	<script src="render/base.js"></script>
+	<script type="text/javascript">require('./render/render')</script>
 </body>
 </html>
