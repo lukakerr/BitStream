@@ -14,12 +14,44 @@ app.on('ready', function() {
 		minHeight: 200,
 		width: 600,
 		center: true,
-		titleBarStyle: 'hidden'
+		titleBarStyle: 'hidden',
+		show: false
 	});
 	mainWindow.loadURL('file://' + __dirname + '/../index.html')
 
-	// menu.init()
+	mainWindow.on('ready-to-show', function() {
+		mainWindow.show()
+		mainWindow.focus()
+	});
+
+	menu.init()
 	dock.init()
+
+	// CMD Q
+	app.on('before-quit', function() {
+	    mainWindow.forceClose = true;
+	});
+
+	// On dock icon click
+	app.on('activate', function() {
+		mainWindow.show();
+	});
+
+	// On red x click
+	mainWindow.on('close', function(event) {
+		if (mainWindow.forceClose) {
+			return
+		}
+		event.preventDefault();
+		mainWindow.hide();
+	});
+});
+
+// If all windows closed, quit, except on OSX
+app.on('window-all-closed', function() {
+	if (process.platform != 'darwin') {
+	  	app.quit();
+	}
 });
 
 // Put app in tray
@@ -43,10 +75,12 @@ ipc.on('set-badge', function(event, progress) {
 	}
 })
 
+// Get request for downloas path and send path back
 ipc.on('downloads-path', function(event, arg) {
 	event.sender.send('downloads-path-reply', downloads.getDownloadsPath())
 })
 
+// Get request for download finished and bounce the dock, and add to recent items
 ipc.on('download-finished', function(event, file) {
 	dock.bounceDownloads(downloads.getDownloadsPath() + '/' + file)
 	dock.addFilesToDock(downloads.getDownloadsPath() + '/' + file)
@@ -54,11 +88,6 @@ ipc.on('download-finished', function(event, file) {
 
 // When a recent file is clicked, send its path
 app.on('open-file', function(event, filePath) {
-  	mainWindow.webContents.send('open-file-reply', filePath)
+	mainWindow.webContents.send('open-file-reply', filePath)
 });
-
-// Clear recent items when app quits
-// app.on('before-quit', function() {
-// 	app.clearRecentDocuments()
-// });
 

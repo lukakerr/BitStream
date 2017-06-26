@@ -10,9 +10,10 @@ function init() {
 	Menu.setApplicationMenu(menu);
 }
 
+// About window - opened from menubar
 function openAboutWindow() {
 	const aboutPath = path.join('file://', __dirname, '../assets/html/about.html')
-	let win = new BrowserWindow({
+	let aboutWindow = new BrowserWindow({
 		minWidth: 300,
 		minHeight: 150,
 		maxWidth: 300,
@@ -20,13 +21,19 @@ function openAboutWindow() {
 		width: 300, 
 		height: 150,
 		center: true,
-		titleBarStyle: 'hidden' 
+		titleBarStyle: 'hidden',
+		show: false
 	})
-	win.on('close', function () { 
+
+	aboutWindow.on('close', function () { 
 		win = null 
 	})
-	win.loadURL(aboutPath)
-	win.show()
+
+	aboutWindow.on('ready-to-show', function() {
+		aboutWindow.show();
+		aboutWindow.focus();
+	});
+	aboutWindow.loadURL(aboutPath)
 }
 
 function getMenuTemplate() {
@@ -36,9 +43,15 @@ function getMenuTemplate() {
 			label: 'Open',
 			accelerator: 'CmdOrCtrl+O',
 			click: function() {
-				dialog.showOpenDialog({ properties: ['openFile'] }, function(filePath) { 
+				dialog.showOpenDialog({ 
+					properties: ['openFile'],
+					filters: [
+						{ name: 'Movies', extensions: ['mp4'] },
+						{ name: 'Audio', extensions: ['mp3'] }
+					] 
+				}, function(filePath) { 
 					if (filePath) {
-						console.log(filePath.toString())
+						mainWindow.webContents.send('open-file-reply', filePath.toString())
 					}
 				});
 			}

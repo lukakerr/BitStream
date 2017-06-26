@@ -89,11 +89,14 @@ function log(str) {
 
 // Listen for a recent file click and append that file to the DOM
 ipc.on('open-file-reply', function (event, filePath) {
-	var fileName = filePath.split('/')
-	fileName = fileName[fileName.length - 1]
+	var fileName = filePath.split('/').slice(-1)[0]
 	document.getElementsByClassName('output')[0].innerHTML = ''
 	log(fileName)
-	log('<video controls><source src="' + filePath + '" type="video/mp4"></video>')
+	if (fileName.endsWith('.mp4')) {
+		log('<video controls autoplay><source src="' + filePath + '" type="video/mp4"></video>')
+	} else if (fileName.endsWith('.mp3')) {
+		log('<audio controls autoplay><source src="' + filePath + '" type="audio/mp3"></video>')
+	}
 	document.getElementById('percentage').innerHTML = ''
 })
 
