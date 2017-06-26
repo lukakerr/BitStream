@@ -18,7 +18,7 @@ app.on('ready', function() {
 	});
 	mainWindow.loadURL('file://' + __dirname + '/../index.html')
 
-	menu.init()
+	// menu.init()
 	dock.init()
 });
 
@@ -32,12 +32,14 @@ ipc.on('remove-tray', function () {
 	tray.removeTray()
 })
 
-// Set badge with download progress
+// Set badge and dock icon progress bar with download progress
 ipc.on('set-badge', function(event, progress) {
-	if (progress != '100%') {
-		dock.badge(progress)
+	if (progress != '100') {
+		dock.badge(progress + '%')
+		mainWindow.setProgressBar(progress/100)
 	} else {
 		dock.badge('');
+		mainWindow.setProgressBar(-1)
 	}
 })
 
@@ -47,4 +49,16 @@ ipc.on('downloads-path', function(event, arg) {
 
 ipc.on('download-finished', function(event, file) {
 	dock.bounceDownloads(downloads.getDownloadsPath() + '/' + file)
+	dock.addFilesToDock(downloads.getDownloadsPath() + '/' + file)
 })
+
+// When a recent file is clicked, send its path
+app.on('open-file', function(event, filePath) {
+  	mainWindow.webContents.send('open-file-reply', filePath)
+});
+
+// Clear recent items when app quits
+// app.on('before-quit', function() {
+// 	app.clearRecentDocuments()
+// });
+

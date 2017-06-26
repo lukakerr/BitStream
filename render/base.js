@@ -63,7 +63,7 @@ function onTorrent(torrent) {
 		if (trayOn) {
 			ipc.send('put-in-tray', 'Downloading... ' + (torrent.progress * 100).toFixed(1) + '%', false)
 		}
-		ipc.send('set-badge', (torrent.progress * 100).toFixed(1) + '%')
+		ipc.send('set-badge', (torrent.progress * 100).toFixed(1))
 		document.getElementById('percentage').innerHTML = 'Downloading... ' + (torrent.progress * 100).toFixed(1) + '%'
 	}, 5000)
 
@@ -72,7 +72,7 @@ function onTorrent(torrent) {
 		if (trayOn) {
 			ipc.send('put-in-tray', 'Download Complete', false)
 		}
-		ipc.send('set-badge', '100%')
+		ipc.send('set-badge', '100')
 		document.getElementById('percentage').innerHTML = 'Progress: 100%'
 		clearInterval(interval)
 		ipc.send('download-finished', torrent.name)
@@ -86,3 +86,14 @@ function log(str) {
 	p.innerHTML = str
 	document.querySelector('.output').appendChild(p)
 }
+
+// Listen for a recent file click and append that file to the DOM
+ipc.on('open-file-reply', function (event, filePath) {
+	var fileName = filePath.split('/')
+	fileName = fileName[fileName.length - 1]
+	document.getElementsByClassName('output')[0].innerHTML = ''
+	log(fileName)
+	log('<video controls><source src="' + filePath + '" type="video/mp4"></video>')
+	document.getElementById('percentage').innerHTML = ''
+})
+

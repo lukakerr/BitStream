@@ -11,7 +11,7 @@ function init() {
 }
 
 function openAboutWindow() {
-	const modalPath = path.join('file://', __dirname, '../assets/html/about.html')
+	const aboutPath = path.join('file://', __dirname, '../assets/html/about.html')
 	let win = new BrowserWindow({
 		minWidth: 300,
 		minHeight: 150,
@@ -22,8 +22,10 @@ function openAboutWindow() {
 		center: true,
 		titleBarStyle: 'hidden' 
 	})
-	win.on('close', function () { win = null })
-	win.loadURL(modalPath)
+	win.on('close', function () { 
+		win = null 
+	})
+	win.loadURL(aboutPath)
 	win.show()
 }
 
@@ -34,9 +36,9 @@ function getMenuTemplate() {
 			label: 'Open',
 			accelerator: 'CmdOrCtrl+O',
 			click: function() {
-				dialog.showOpenDialog({properties: [ 'openFile']}, function(filename) { 
-					if (filename) {
-						console.log(filename.toString())
+				dialog.showOpenDialog({ properties: ['openFile'] }, function(filePath) { 
+					if (filePath) {
+						console.log(filePath.toString())
 					}
 				});
 			}

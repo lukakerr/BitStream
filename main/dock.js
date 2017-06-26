@@ -22,16 +22,16 @@ function bounceDownloads(path) {
 	app.dock.downloadFinished(path)
 }
 
+// Add files to recent menu in dock
+function addFilesToDock(filePath) {
+	app.addRecentDocument(filePath)
+}
+
 function getMenuTemplate() {
 	return [{
-		label: 'Open Torrent File',
-		accelerator: 'CmdOrCtrl+O',
+		label: 'Clear Recent Files',
 		click: function() {
-			dialog.showOpenDialog({properties: [ 'openFile']}, function(filename) { 
-				if (filename) {
-					console.log(filename.toString())
-				}
-			});
+			app.clearRecentDocuments()
 		}
 	}]
 }
@@ -39,5 +39,6 @@ function getMenuTemplate() {
 module.exports = {
 	init,
 	badge,
-	bounceDownloads
+	bounceDownloads,
+	addFilesToDock
 }
