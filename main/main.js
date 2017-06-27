@@ -13,9 +13,11 @@ app.on('ready', function() {
 		minWidth: 600,
 		minHeight: 200,
 		width: 600,
+		height: 700,
 		center: true,
 		titleBarStyle: 'hidden',
-		show: false
+		show: false,
+		vibrancy: 'ultra-dark'
 	});
 	mainWindow.loadURL('file://' + __dirname + '/../index.html')
 

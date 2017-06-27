@@ -1,5 +1,4 @@
 body, html {
-	background: #202020;
 	color: #AAA;
 	font-family: Helvetica Neue;
 	font-weight: 200;
@@ -140,6 +139,7 @@ video::-webkit-media-controls-timeline, audio::-webkit-media-controls-timeline {
 
 video::-webkit-media-controls, audio::-webkit-media-controls {
 	filter: grayscale(100%);
+	opacity: 0.7;
 }
 
 #percentage {

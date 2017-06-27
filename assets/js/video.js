@@ -58,3 +58,27 @@ for (var i = 0 ; i < videos.length ; i++) {
         });
     })(i);
 }
+
+// Hide the mouse when it doesn't move for a while over video element
+
+var mouseTimer, cursorVisible = null
+
+document.onmousemove = function() {
+    if (mouseTimer) {
+        window.clearTimeout(mouseTimer);
+    }
+
+    if (!cursorVisible) {
+        videos[0].style.cursor = "default";
+        cursorVisible = true;
+    }
+
+    mouseTimer = window.setTimeout(function() {
+        mouseTimer = null;
+        videos[0].style.cursor = "none";
+        cursorVisible = false;
+    }, 3000);
+};
+
+
+

@@ -12,7 +12,7 @@ To get magnets from a torrent website such as [ThePirateBay](https://thepirateba
 
 `cd bitstream && npm install`
 
-`electron .`
+`npm start`
 
 ### Screenshot
 
