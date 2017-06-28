@@ -50,5 +50,5 @@ Video:
 </div>
 <br><br>
 <div style="text-align:center">
-	<img src ="https://i.imgur.com/7E3B0xn.png" alt="bitstream-2">
+	<img src ="https://i.imgur.com/SKfsIrF.png" alt="bitstream-2">
 </div>
