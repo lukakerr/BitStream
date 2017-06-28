@@ -7,6 +7,8 @@ const settings = require('electron-settings');
 let loading = document.getElementById('loading')
 let trayButton = document.getElementById('put-in-tray')
 let progressBar = document.getElementById('progress')
+let inputSources = document.getElementById('input-sources')
+let reloadButton = document.getElementById('reload-page')
 let trayOn = false
 
 client.on('error', function (err) {
@@ -73,6 +75,8 @@ document.querySelector('form').addEventListener('submit', function (e) {
 function onTorrent(torrent) {
 	// Iterate over each file in torrent
 	torrent.files.forEach(function (file) {
+		console.log(file)
+		inputSources.style.display = 'none'
 		// If .mp3
 		if (file.name.endsWith('.mp3')) {
 			// Add file name to title element and append file to output - dont autoplay audio as there's usually multiple songs
@@ -124,4 +128,9 @@ function log(str) {
 	p.innerHTML = str
 	document.querySelector('.output').appendChild(p)
 }
+
+reloadButton.addEventListener("click", function() {
+	location.reload()
+    ipc.send('reload-clicked')
+});
 

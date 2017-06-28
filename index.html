@@ -6,22 +6,29 @@
 <body>
 	<div class="titlebar"></div>
 	<h1>BitStream</h1>
-	<button id="put-in-tray" title="Show download percentage in menu bar">
-		<img src="assets/img/tray-up.png">
-	</button>
+	<div class="top-buttons">
+		<button id="put-in-tray" title="Show download percentage in menu bar">
+			<img src="assets/img/tray-up.png">
+		</button>
+		<button id="reload-page" title="Clear current file & download a new one">
+			<img src="assets/img/reload.png">
+		</button>
+	</div>
 	<img id="loading" src="assets/img/loading.gif">
 
-	<form>
-		<label for="magnet">Enter a magnet link... </label>
-		<input name="magnet">
-		<button type="submit" id="download-btn">
-			<img src="assets/img/dl.png" title="Download And Stream">
-		</button>
-	</form>
+	<div id="input-sources">
+		<form>
+			<label for="magnet">Enter a magnet link... </label>
+			<input name="magnet">
+			<button type="submit" id="download-btn">
+				<img src="assets/img/dl.png" title="Download And Stream">
+			</button>
+		</form>
 
-	<div class="file-drop-container">
-		<div class="title">... Or drop a .torrent file here to start downloading &amp; streaming!</div>
-		<input id="file-drop" type="file" name="upload" class="upload" title="Drop a .torrent file here to downloading &amp; streaming">
+		<div class="file-drop-container">
+			<div class="title">... Or drop a .torrent file here to start downloading &amp; streaming!</div>
+			<input id="file-drop" type="file" name="upload" class="upload" title="Drop a .torrent file here to downloading &amp; streaming">
+		</div>
 	</div>
 
 	<div class="output">

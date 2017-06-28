@@ -27,7 +27,7 @@ app.on('ready', function() {
 		mainWindow.focus()
 	});
 
-	menu.init()
+	// menu.init()
 	dock.init()
 
 	// CMD Q
@@ -57,10 +57,18 @@ app.on('ready', function() {
 
 });
 
-// Put app in tray
+// When a file is added to the window, change window size
 ipc.on('new-file-added', function (event) {
-	mainWindow.setSize(900, 700, true)
+	mainWindow.setSize(900, 600, true)
 	mainWindow.center()
+})
+
+// When reload button is clicked, reset window and progress bar
+ipc.on('reload-clicked', function(event) {
+	mainWindow.setSize(600, 250, true)
+	mainWindow.center()
+	mainWindow.setProgressBar(-1)
+	dock.badge('')
 })
 
 // If all windows closed, quit, except on OSX
@@ -88,7 +96,7 @@ ipc.on('set-badge', function(event, progress) {
 			dock.badge(progress + '%')
 			mainWindow.setProgressBar(progress/100)
 		} else {
-			dock.badge('1');
+			dock.badge('1')
 			mainWindow.setProgressBar(-1)
 		}
 	}
