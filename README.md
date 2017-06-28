@@ -46,7 +46,7 @@ Video:
 ### Screenshots
 
 <div style="text-align:center">
-	<img src ="https://i.imgur.com/kZkUIfL.png" alt="bitstream">
+	<img src ="https://i.imgur.com/m1RkCIh.png" alt="bitstream">
 </div>
 <br><br>
 <div style="text-align:center">
