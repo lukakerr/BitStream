@@ -1,6 +1,8 @@
 const WebTorrent = require('webtorrent')
+var fs = require('fs')
 const client = new WebTorrent()
 const ipc = require('electron').ipcRenderer
+const settings = require('electron-settings');
 
 let loading = document.getElementById('loading')
 let trayButton = document.getElementById('put-in-tray')
@@ -11,6 +13,34 @@ client.on('error', function (err) {
 	loading.style.display = 'none';
 	alert('An error occured. Please try again.')
 	location.reload()
+})
+
+// Listen for a recent file or open file click and append that file to the DOM
+ipc.on('open-file-reply', function (event, filePath) {
+
+	var fileName = filePath.split('/').slice(-1)[0]
+
+	document.getElementsByClassName('output')[0].innerHTML = ''
+
+	if (fileName.endsWith('.mp4')) {
+		log(fileName)
+		log('<video controls autoplay><source src="' + filePath + '" type="video/mp4"></video>')
+	} else if (fileName.endsWith('.torrent')) {
+		var torrentId = filePath
+
+		// Show loading spinner
+		loading.style.display = 'block';
+
+		ipc.send('downloads-path')
+
+		ipc.on('downloads-path-reply', function (event, path) {
+			const downloadsPath = path
+			// Start downloading torrent, callback to onTorrent
+			client.add(torrentId, { path: downloadsPath }, onTorrent)
+		})
+	}
+
+	document.getElementById('percentage').innerHTML = ''
 })
 
 // Listen for for input
@@ -24,14 +54,15 @@ document.querySelector('form').addEventListener('submit', function (e) {
 
 	// Get magnet
 	var torrentId = document.querySelector('form input[name=magnet]').value
+
 	// Show loading spinner
 	loading.style.display = 'block';
-	
+
 	ipc.send('downloads-path')
 
 	ipc.on('downloads-path-reply', function (event, path) {
-  		const downloadsPath = path
-  		// Start downloading torrent, callback to onTorrent
+		const downloadsPath = path
+		// Start downloading torrent, callback to onTorrent
 		client.add(torrentId, { path: downloadsPath }, onTorrent)
 	})
 })
@@ -76,7 +107,9 @@ function onTorrent(torrent) {
 		document.getElementById('percentage').innerHTML = 'Progress: 100%'
 		clearInterval(interval)
 		ipc.send('download-finished', torrent.name)
-		new Notification('Download Complete', { body: torrent.name + ' has finished downloading.' })
+		if (settings.get('notification.checked')) {
+			new Notification('Download Complete', { body: torrent.name })
+		}
 	})
 }
 
@@ -86,17 +119,4 @@ function log(str) {
 	p.innerHTML = str
 	document.querySelector('.output').appendChild(p)
 }
-
-// Listen for a recent file click and append that file to the DOM
-ipc.on('open-file-reply', function (event, filePath) {
-	var fileName = filePath.split('/').slice(-1)[0]
-	document.getElementsByClassName('output')[0].innerHTML = ''
-	log(fileName)
-	if (fileName.endsWith('.mp4')) {
-		log('<video controls autoplay><source src="' + filePath + '" type="video/mp4"></video>')
-	} else if (fileName.endsWith('.mp3')) {
-		log('<audio controls autoplay><source src="' + filePath + '" type="audio/mp3"></video>')
-	}
-	document.getElementById('percentage').innerHTML = ''
-})
 

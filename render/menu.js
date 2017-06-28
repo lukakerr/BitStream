@@ -20,11 +20,3 @@ function setContextMenu() {
 		menu.popup(remote.getCurrentWindow())
 	}, false)
 }
-
-// var interval = setInterval(function () {
-// 	video = document.getElementsByTagName('video')[0]
-// 	video.addEventListener('contextmenu', function(e) {
-// 		e.preventDefault()
-// 		menu.popup(remote.getCurrentWindow())
-// 	}, false)
-// }, 1000)

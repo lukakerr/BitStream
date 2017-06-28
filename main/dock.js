@@ -29,7 +29,7 @@ function addFilesToDock(filePath) {
 
 function getMenuTemplate() {
 	return [{
-		label: 'Clear Recent Items',
+		label: 'Clear Recent Videos',
 		click: function() {
 			app.clearRecentDocuments()
 		}

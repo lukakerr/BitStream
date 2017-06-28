@@ -2,6 +2,7 @@ const electron = require('electron')
 const app = electron.app;
 const ipc = electron.ipcMain
 const BrowserWindow = electron.BrowserWindow;
+const settings = require('electron-settings');
 
 const dock = require('./dock')
 const menu = require('./menu')
@@ -47,6 +48,12 @@ app.on('ready', function() {
 		event.preventDefault();
 		mainWindow.hide();
 	});
+
+	// Listen for focus event, when focused dock badge is set to nothing
+	// This is used when a download has finished - to remove the number from the dock
+	mainWindow.on('focus', function(event) {
+		dock.badge('')
+	});
 });
 
 // If all windows closed, quit, except on OSX
@@ -68,12 +75,15 @@ ipc.on('remove-tray', function () {
 
 // Set badge and dock icon progress bar with download progress
 ipc.on('set-badge', function(event, progress) {
-	if (progress != '100') {
-		dock.badge(progress + '%')
-		mainWindow.setProgressBar(progress/100)
-	} else {
-		dock.badge('');
-		mainWindow.setProgressBar(-1)
+	// Check if the user wants to show the download progress (in preferences)
+	if (settings.get('dock-download-progress.checked')) {
+		if (progress != '100') {
+			dock.badge(progress + '%')
+			mainWindow.setProgressBar(progress/100)
+		} else {
+			dock.badge('1');
+			mainWindow.setProgressBar(-1)
+		}
 	}
 })
 
@@ -84,12 +94,19 @@ ipc.on('downloads-path', function(event, arg) {
 
 // Get request for download finished and bounce the dock, and add to recent items
 ipc.on('download-finished', function(event, file) {
-	dock.bounceDownloads(downloads.getDownloadsPath() + '/' + file)
-	dock.addFilesToDock(downloads.getDownloadsPath() + '/' + file)
+	if (settings.get('downloads-folder.checked')) {
+		dock.bounceDownloads(downloads.getDownloadsPath() + '/' + file)
+	}
+	console.log(file)
+	if (file.endsWith('.mp4')) {
+		dock.addFilesToDock(downloads.getDownloadsPath() + '/' + file)
+	}
 })
 
 // When a recent file is clicked, send its path
 app.on('open-file', function(event, filePath) {
+	event.preventDefault();
+	console.log(filePath)
 	mainWindow.webContents.send('open-file-reply', filePath)
 });
 

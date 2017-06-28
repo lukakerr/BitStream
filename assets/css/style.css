@@ -1,8 +1,18 @@
+@keyframes fadein {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
 body, html {
 	color: #AAA;
 	font-family: Helvetica Neue;
 	font-weight: 200;
 	user-select: none;
+	animation: fadein 0.75s;
 }
 
 .titlebar {
@@ -62,7 +72,7 @@ form {
 	margin-bottom: 70px;
 }
 
-input {
+form input {
 	background: #303030;
 	border: none;
 	border-radius: 4px;
@@ -74,7 +84,7 @@ input {
 	color: #AAA;
 }
 
-input:focus {
+form input:focus {
 	border: none;
 	box-shadow: 0 0 4px rgba(81, 203, 238, 1);
 	outline: none;
@@ -122,19 +132,19 @@ audio {
 }
 
 video::-webkit-media-controls-panel, audio::-webkit-media-controls-panel {
-    background-color: #232323;
+	background-color: #232323;
 }
 
 video::-webkit-media-controls-volume-slider-container, audio::-webkit-media-controls-volume-slider-container {
-    background-color: #303030;
+	background-color: #303030;
 }
 
 video::-webkit-media-controls-volume-slider, audio::-webkit-media-controls-volume-slider {
-    background-color: #303030;
+	background-color: #303030;
 }
 
 video::-webkit-media-controls-timeline, audio::-webkit-media-controls-timeline {
-    background-color: #202020;
+	background-color: #202020;
 }
 
 video::-webkit-media-controls, audio::-webkit-media-controls {
@@ -164,3 +174,32 @@ video::-webkit-media-controls, audio::-webkit-media-controls {
 	display: block;
 	margin: 10px 0;
 }
+
+/* Preferences Window */
+
+.preferences-window {
+	margin: 0;
+}
+
+.preferences-window h1 {
+	margin-top: -20px;
+}
+
+.preferences-window span {
+	display: inline;
+}
+
+.checkboxes {
+	display: block;
+	text-align: center;
+}
+
+.checkboxes * {
+	margin: 10px 5px;
+}
+
+.checkboxes input {
+	position: relative;
+	top: -1px;
+}
+

@@ -22,7 +22,8 @@ function openAboutWindow() {
 		height: 150,
 		center: true,
 		titleBarStyle: 'hidden',
-		show: false
+		show: false,
+		vibrancy: 'ultra-dark'
 	})
 
 	aboutWindow.on('close', function () { 
@@ -36,6 +37,33 @@ function openAboutWindow() {
 	aboutWindow.loadURL(aboutPath)
 }
 
+// Preferences window - opened from menubar
+function openPreferencesWindow() {
+	const prefPath = path.join('file://', __dirname, '../assets/html/preferences.html')
+	let prefWindow = new BrowserWindow({
+		minWidth: 400,
+		minHeight: 400,
+		maxWidth: 400,
+		maxHeight: 400,
+		width: 400, 
+		height: 400,
+		center: true,
+		titleBarStyle: 'hidden',
+		show: false,
+		vibrancy: 'ultra-dark'
+	})
+
+	prefWindow.on('close', function () { 
+		win = null 
+	})
+
+	prefWindow.on('ready-to-show', function() {
+		prefWindow.show();
+		prefWindow.focus();
+	});
+	prefWindow.loadURL(prefPath)
+}
+
 function getMenuTemplate() {
 	const menuTemplate = [{
 		label: 'File',
@@ -47,7 +75,8 @@ function getMenuTemplate() {
 					properties: ['openFile'],
 					filters: [
 						{ name: 'Movies', extensions: ['mp4'] },
-						{ name: 'Audio', extensions: ['mp3'] }
+						{ name: 'Audio', extensions: ['mp3'] },
+						{ name: 'Torrent', extensions: ['torrent'] }
 					] 
 				}, function(filePath) { 
 					if (filePath) {
@@ -87,7 +116,6 @@ function getMenuTemplate() {
 		}]
 	}, {
 		label: 'Window',
-		role: 'window',
 		submenu: [{
 			label: 'Minimize',
 			accelerator: 'CmdOrCtrl+M',
@@ -113,11 +141,18 @@ function getMenuTemplate() {
 		const name = app.getName();
 		menuTemplate.unshift({
 			label: name,
-			submenu: [
-			{
+			submenu: [{
 				label: 'About ' + name,
 				click: function() {
 					openAboutWindow()
+				}
+			}, {
+				type: 'separator'
+			}, {
+				label: 'Preferences ',
+				accelerator: 'CmdOrCtrl+,',
+				click: function() {
+					openPreferencesWindow()
 				}
 			}, {
 				type: 'separator'

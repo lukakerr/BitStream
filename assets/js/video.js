@@ -64,20 +64,22 @@ for (var i = 0 ; i < videos.length ; i++) {
 var mouseTimer, cursorVisible = null
 
 document.onmousemove = function() {
-    if (mouseTimer) {
-        window.clearTimeout(mouseTimer);
-    }
+    if (videos[0]) {
+        if (mouseTimer) {
+            window.clearTimeout(mouseTimer);
+        }
 
-    if (!cursorVisible) {
-        videos[0].style.cursor = "default";
-        cursorVisible = true;
-    }
+        if (!cursorVisible) {
+            videos[0].style.cursor = "default";
+            cursorVisible = true;
+        }
 
-    mouseTimer = window.setTimeout(function() {
-        mouseTimer = null;
-        videos[0].style.cursor = "none";
-        cursorVisible = false;
-    }, 3000);
+        mouseTimer = window.setTimeout(function() {
+            mouseTimer = null;
+            videos[0].style.cursor = "none";
+            cursorVisible = false;
+        }, 3000);
+    }
 };
 
 
