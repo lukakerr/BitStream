@@ -1,3 +1,8 @@
+@font-face {
+    font-family: SF;
+    src: url(../fonts/SF.otf);
+}
+
 @keyframes fadein {
 	from {
 		opacity: 0;
@@ -9,14 +14,14 @@
 
 body, html {
 	color: #AAA;
-	font-family: Helvetica Neue;
-	font-weight: 200;
+	font-family: "SF";
+	font-weight: 100;
 	user-select: none;
 	animation: fadein 0.75s;
 }
 
 .titlebar {
-	margin: -10px -10px 50px -12px;
+	margin: -10px -10px 40px -12px;
 	height: 20px;
 	background: transparent;
 	width: calc(100% + 20px);
@@ -25,22 +30,28 @@ body, html {
 }
 
 h1 {
-	font-weight: 100;
+	margin-top: -45px;
+	margin-bottom: 50px;
+	font-size: 14px;
+	font-weight: 300;
 	text-align: center;
 	cursor: default;
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
 }
 
 #loading {
-	width: 30px;
-	top: 47px;
+	width: 20px;
+	top: 9.5px;
+	right: 40px;
 	position: absolute;
 	margin-left: 20px;
 	display: none;
 }
 
 #put-in-tray {
-	right: 10px;
-	top: 5px;
+	right: 12px;
+	top: 13px;
 	width: 13px;
 	height: 13px;
 	position: absolute;
@@ -72,6 +83,12 @@ form {
 	margin-bottom: 70px;
 }
 
+form label {
+	position: relative;
+	bottom: -2px;
+	left: -3px;
+}
+
 form input {
 	background: #303030;
 	border: none;
@@ -80,7 +97,7 @@ form input {
 	height: 30px;
 	padding-left: 5px;
 	vertical-align: middle;
-	width: 250px;
+	width: 350px;
 	color: #AAA;
 }
 
@@ -115,6 +132,31 @@ button:hover {
 	bottom: 3px;
 }
 
+.file-drop-container {
+	margin: 0 auto;
+	margin-top: -30px;
+	width: 420px;
+	cursor: pointer;
+	overflow: hidden;
+	padding: 20px 60px;
+	text-align: center;
+	position: relative;
+	background: transparent;
+	border: 1px dashed #AAA;
+	border-radius: 5px;
+}
+
+.upload {
+	left: 0;
+	top: 0;
+	width: 550px;
+	height: 60px;
+	opacity: 0;
+	outline: none;
+	cursor: pointer;
+	position: absolute;
+}
+
 #title {
 	text-align: center;
 	font-size: 16px;
@@ -144,16 +186,30 @@ video::-webkit-media-controls-volume-slider, audio::-webkit-media-controls-volum
 }
 
 video::-webkit-media-controls-timeline, audio::-webkit-media-controls-timeline {
-	background-color: #202020;
+	background-color: red;
 }
 
 video::-webkit-media-controls, audio::-webkit-media-controls {
 	filter: grayscale(100%);
-	opacity: 0.7;
+	opacity: 0.9;
 }
 
-#percentage {
-	margin: 50px 0 20px 0;
+#progress {
+	margin: 10px 5% 20px 5%;
+	width: 90%;
+	height: 5px;
+	display: none;
+    -webkit-appearance: none;
+}
+
+progress::-webkit-progress-value {
+	background: #666 !important;
+	border-radius: 10px !important;
+}
+
+progress::-webkit-progress-bar {
+	background: #303030;
+	border-radius: 10px !important;
 }
 
 /* About Window */

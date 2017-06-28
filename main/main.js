@@ -16,7 +16,7 @@ app.on('ready', function() {
 		width: 600,
 		height: 700,
 		center: true,
-		titleBarStyle: 'hidden',
+		titleBarStyle: 'hidden-inset',
 		show: false,
 		vibrancy: 'ultra-dark'
 	});
@@ -27,7 +27,7 @@ app.on('ready', function() {
 		mainWindow.focus()
 	});
 
-	menu.init()
+	// menu.init()
 	dock.init()
 
 	// CMD Q
@@ -54,7 +54,14 @@ app.on('ready', function() {
 	mainWindow.on('focus', function(event) {
 		dock.badge('')
 	});
+
 });
+
+// Put app in tray
+ipc.on('new-file-added', function (event) {
+	mainWindow.setSize(900, 700, true)
+	mainWindow.center()
+})
 
 // If all windows closed, quit, except on OSX
 app.on('window-all-closed', function() {

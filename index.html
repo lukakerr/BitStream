@@ -5,29 +5,35 @@
 </head>
 <body>
 	<div class="titlebar"></div>
-	<h1>Stream Torrent Files</h1>
+	<h1>BitStream</h1>
 	<button id="put-in-tray" title="Show download percentage in menu bar">
 		<img src="assets/img/tray-up.png">
 	</button>
 	<img id="loading" src="assets/img/loading.gif">
 
 	<form>
-		<label for="magnet">Enter a magnet link: </label>
+		<label for="magnet">Enter a magnet link... </label>
 		<input name="magnet">
 		<button type="submit" id="download-btn">
 			<img src="assets/img/dl.png" title="Download And Stream">
 		</button>
 	</form>
 
+	<div class="file-drop-container">
+		<div class="title">... Or drop a .torrent file here to start downloading &amp; streaming!</div>
+		<input id="file-drop" type="file" name="upload" class="upload" title="Drop a .torrent file here to downloading &amp; streaming">
+	</div>
+
 	<div class="output">
 		<p id="title"></p>
 	</div>
 
-	<p id="percentage"></p>
+	<progress value="20" max="100" id="progress"></progress>
 
 	<script type="text/javascript">require('./render/menu')</script>
 	<script src="assets/js/video.js"></script>
 	<script src="render/base.js"></script>
 	<script type="text/javascript">require('./render/tray')</script>
+	<script type="text/javascript">require('./render/drag-file')</script>
 </body>
 </html>

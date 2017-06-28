@@ -6,6 +6,7 @@ const settings = require('electron-settings');
 
 let loading = document.getElementById('loading')
 let trayButton = document.getElementById('put-in-tray')
+let progressBar = document.getElementById('progress')
 let trayOn = false
 
 client.on('error', function (err) {
@@ -40,7 +41,8 @@ ipc.on('open-file-reply', function (event, filePath) {
 		})
 	}
 
-	document.getElementById('percentage').innerHTML = ''
+	progressBar.value = 0
+	progressBar.style.display = 'none'
 })
 
 // Listen for for input
@@ -49,7 +51,8 @@ document.querySelector('form').addEventListener('submit', function (e) {
 
 	// Clear out contents
 	document.getElementById('title').innerHTML = '';
-	document.getElementById('percentage').innerHTML = '';
+	progressBar.value = 0
+	progressBar.style.display = 'none'
 	document.querySelector('.output').innerHTML = '';
 
 	// Get magnet
@@ -80,6 +83,7 @@ function onTorrent(torrent) {
 			// Add file name to title element and append file to output
 			log(file.name)
 			file.appendTo('.output')
+			ipc.send('new-file-added')
 		}
 		file.getBlobURL(function (err, url) {
 			if (err) return log(err.message)
@@ -89,14 +93,15 @@ function onTorrent(torrent) {
 	// Hide loading spinner
 	loading.style.display = 'none';
 
-	// Every 5 seconds get download percentage
+	// Every 5 seconds get download percentage and update progress bar
 	var interval = setInterval(function () {
 		if (trayOn) {
 			ipc.send('put-in-tray', 'Downloading... ' + (torrent.progress * 100).toFixed(1) + '%', false)
 		}
 		ipc.send('set-badge', (torrent.progress * 100).toFixed(1))
-		document.getElementById('percentage').innerHTML = 'Downloading... ' + (torrent.progress * 100).toFixed(1) + '%'
-	}, 5000)
+		progressBar.style.display = 'block'
+		progressBar.value = (torrent.progress * 100).toFixed(1)
+	}, 3000)
 
 	// When torrent is done, clear the interval
 	torrent.on('done', function () {
@@ -104,7 +109,7 @@ function onTorrent(torrent) {
 			ipc.send('put-in-tray', 'Download Complete', false)
 		}
 		ipc.send('set-badge', '100')
-		document.getElementById('percentage').innerHTML = 'Progress: 100%'
+		progressBar.value = 100
 		clearInterval(interval)
 		ipc.send('download-finished', torrent.name)
 		if (settings.get('notification.checked')) {
