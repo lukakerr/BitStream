@@ -27,7 +27,7 @@ app.on('ready', function() {
 		mainWindow.focus()
 	});
 
-	// menu.init()
+	menu.init()
 	dock.init()
 
 	// CMD Q

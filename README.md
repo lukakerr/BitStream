@@ -10,9 +10,9 @@ To get magnets from a torrent website such as [ThePirateBay](https://thepirateba
 
 ### To Run The App
 
-`git clone https://github.com/LukaKerr/bitstream.git`
+`git clone https://github.com/LukaKerr/BitStream.git`
 
-`cd bitstream && npm install`
+`cd BitStream && npm install`
 
 `npm start`
 
