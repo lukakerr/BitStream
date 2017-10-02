@@ -1,19 +1,19 @@
 {
-	"name": "BitStream",
-	"description": "Stream and download a torrent easily with BitStream powered by WebTorrent",
-	"version": "0.1.0",
-	"main": "main/main.js",
-	"license": "MIT",
-	"author": "Luka Kerr",
-	"scripts": {
-		"start": "electron ."
-	},
-	"dependencies": {
-		"electron-packager": "^8.1.0",
-		"electron-settings": "^3.1.1",
-		"webtorrent": "^0.98.18"
-	},
-	"devDependencies": {
-		"electron": "^1.6.11"
-	}
+  "name": "BitStream",
+  "description": "Stream and download a torrent easily with BitStream powered by WebTorrent",
+  "version": "0.1.0",
+  "main": "main/main.js",
+  "license": "MIT",
+  "author": "Luka Kerr",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron-packager": "^8.1.0",
+    "electron-settings": "^3.1.1",
+    "webtorrent": "^0.98.18"
+  },
+  "devDependencies": {
+    "electron": "^1.7.8"
+  }
 }
